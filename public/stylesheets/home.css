@@ -1,0 +1,19 @@
+
+/* ng animate */
+.fade-in-animation.ng-enter {
+    -webkit-animation: fadeIn 1.5s;
+    animation: fadeIn 1.5s;
+}
+
+input {
+    padding: 5px;
+}
+
+input.ng-valid {
+    border: 1px solid #4cff00 !important;
+}
+
+
+input.ng-invalid {
+    border: 1px solid #f00 !important;
+}

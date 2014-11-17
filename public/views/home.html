@@ -1,0 +1,102 @@
+<div ng-controller="homeController"> <!-- we need manually place controller in template and not in route because of the dynamic controller loading -->
+
+    <div class="container">
+    
+            <h3> Add User </h1>
+
+            <!-- botstrap forms layout -->
+            <form role="form" name="addUserForm" id="addUserForm" novalidate ng-submit="submitForm();">
+
+              <div class="form-group">
+                <input required placeholder="User Name" type="text" ng-model="addUserForm.name"/>
+              </div>
+
+              <div class="form-group">
+                <input required placeholder="User Email" type="email" ng-model="addUserForm.email"/>
+              </div>
+
+              <div class="form-group">
+                <input required placeholder="User Password" type="text" ng-model="addUserForm.password"/>
+              </div>
+
+              <button ng-disabled="addUserForm.$invalid" type="submit" class="btn btn-default">Submit</button>
+
+              <span ng-show="addUserForm.$invalid" class="text-muted">Disabled. Please fill in all the required details.</span>
+               
+              <div class="text-warning">{{msgFromPlay}}</div>
+            </form>
+            
+
+            <hr>
+
+        
+            <h3> Existing users </h1>    
+            <table class="table table-striped">
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>User Name</th>
+                        <th>User Email</th>
+                        <th>Password (BCrypt)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr ng-repeat="user in allUsers | orderBy: '-id' ">
+                        <td>{{user.id}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.password}}</td>
+                        <td>
+                            <button class="btn btn-default" ng-click="removeUser(user.id)">Delete</button>
+                            <button class="btn btn-default" ng-click="updateModal(user.id,user.name,user.email,user.password)">Update</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+         </div>
+
+
+         <script type="text/ng-template" id="updateUserForm.html">
+
+            <div class="modal-header">
+                <h3 class="modal-title">Update details for {{currUser.name}} </h3>
+            </div>
+
+            <div class="modal-body">
+                <!-- botstrap forms layout -->
+                <form role="form" name="updateUserForm" id="updateUserForm" novalidate ng-submit="submitForm();" >
+
+                  <div class="form-group">
+                    <input required placeholder="User Name" type="text"  ng-model="currUser.name" />
+                  </div>
+
+                  <div class="form-group">
+                    <input required placeholder="User Email" type="email" ng-model="currUser.email"/>
+                  </div>
+
+                  <div class="form-group">
+                    <input required placeholder="User Password" type="text" ng-model="currUser.password"/>
+                  </div>
+
+                  <button ng-disabled="updateUserForm.$invalid" type="submit" class="btn btn-default">Submit</button>
+
+                  <span ng-show="updateUserForm.$invalid" class="text-muted">Disabled. Please fill in all the required details.</span>
+                    
+                  <div class="text-warning">{{updateError}}</div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+
+        </script>
+
+
+</div>
